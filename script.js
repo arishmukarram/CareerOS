@@ -39,18 +39,18 @@
   }
 
   document.addEventListener('DOMContentLoaded', async () => {
-    try {
-      const response = await fetch(`${API_URL}/user`);
-      if (!response.ok) return; 
-      
-      const data = await response.json();
-      if (!data) return;
-      
-      document.querySelectorAll('.save-input, .save-check, .track-check').forEach(el => {
-        if (data[el.id] !== undefined) {
-          if (el.type === 'checkbox') el.checked = data[el.id];
-          else el.value = data[el.id];
-        }
+   try {
+    const response = await fetch(`${API_URL}/user`);
+    if (!response.ok) {
+        console.error("Fetch failed with status:", response.status);
+        return;
+    }
+    const data = await response.json();
+    console.log("Data received:", data); // Check this in the Console tab
+    // ... rest of your code
+} catch (error) {
+    console.error("Fetch error:", error);
+}
         
         el.addEventListener('change', (e) => {
           saveData(e.target.id, e.target.type === 'checkbox' ? e.target.checked : e.target.value);
