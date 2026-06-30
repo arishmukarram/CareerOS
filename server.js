@@ -4,6 +4,9 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
 
+// Ensure this path matches the actual name of your model file (e.g., models.js)
+const { User, Internship, Network } = require('./models');
+
 const app = express();
 
 // Middleware
@@ -13,16 +16,18 @@ app.use(cors());
 // Serve static files from the root directory
 app.use(express.static(__dirname));
 
-// Connect to MongoDB
+// Connect to MongoDB with error handling
 const dbURI = process.env.MONGO_URI;
 mongoose.connect(dbURI)
   .then(() => console.log('MongoDB Connected to Atlas!'))
-  .catch(err => console.log(err));
+  .catch(err => console.error('MongoDB Connection Error:', err));
 
 // --- API ROUTES ---
 app.get('/api/user', async (req, res) => {
-  const user = await User.findOne() || await User.create({});
-  res.json(user);
+  try {
+    const user = await User.findOne() || await User.create({});
+    res.json(user);
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
 app.put('/api/user', async (req, res) => {
@@ -33,9 +38,7 @@ app.put('/api/user', async (req, res) => {
         setDefaultsOnInsert: true 
     });
     res.json(user);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
 app.get('/api/internships', async (req, res) => {
@@ -64,23 +67,22 @@ app.post('/api/network', async (req, res) => {
 });
 
 app.get('/api/analytics', async (req, res) => {
-  const totalApps = await Internship.countDocuments();
-  const interviews = await Internship.countDocuments({ status: 'Interview' });
-  const contacts = await Network.countDocuments();
-  res.json({
-    applications: totalApps,
-    interviews: interviews,
-    networkingGrowth: contacts
-  });
+  try {
+    const totalApps = await Internship.countDocuments();
+    const interviews = await Internship.countDocuments({ status: 'Interview' });
+    const contacts = await Network.countDocuments();
+    res.json({ applications: totalApps, interviews, networkingGrowth: contacts });
+  } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-// --- FRONTEND ROUTE (Must be last) ---
+// --- FRONTEND ROUTE ---
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// Start Server with dynamic Railway port
+// --- START SERVER ---
+// Binding to 0.0.0.0 is critical for Railway networking
 const PORT = process.env.PORT || 5000;
-app.listen(process.env.PORT || 5000, '0.0.0.0', () => {
-  console.log(`Server running on port ${process.env.PORT || 5000}`);
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server is running on port ${PORT}`);
 });
