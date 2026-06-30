@@ -193,6 +193,173 @@
   /* RESOURCES (OS Addition) */
   .resource-link { display: flex; align-items: center; gap: 12px; padding: 12px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 8px; text-decoration: none; color: var(--text); transition: 0.2s; }
   .resource-link:hover { border-color: var(--accent); }
+
+  /* TO-DO LIST TAB */
+  .todo-toolbar { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 24px; }
+  .todo-add-form { display: flex; flex-wrap: wrap; gap: 8px; flex-grow: 1; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 12px; }
+  .todo-add-form input[type="text"] {
+    flex: 1 1 220px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+  }
+  .todo-add-form input[type="text"]:focus { outline: none; border-color: var(--accent); }
+  .todo-add-form select {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  .todo-add-form input[type="date"] {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color-scheme: dark;
+  }
+  [data-theme="light"] .todo-add-form input[type="date"] { color-scheme: light; }
+  .todo-add-btn {
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition: 0.2s;
+    white-space: nowrap;
+  }
+  .todo-add-btn:hover { opacity: 0.85; }
+
+  .todo-filters { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+  .todo-filter-btn {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+    font-family: 'Inter', sans-serif;
+  }
+  .todo-filter-btn:hover { color: var(--text); }
+  .todo-filter-btn.active { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+
+  .todo-stats { display: flex; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
+  .todo-stat { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 20px; flex: 1 1 140px; }
+  .todo-stat .num { font-family: 'Syne', sans-serif; font-size: 24px; font-weight: 800; }
+  .todo-stat .lbl { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px; }
+  .todo-stat.accent .num { color: var(--accent); }
+  .todo-stat.warn .num { color: var(--warn); }
+  .todo-stat.red .num { color: var(--red); }
+
+  .todo-list { display: flex; flex-direction: column; gap: 8px; }
+  .todo-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    transition: 0.2s;
+  }
+  .todo-row:hover { border-color: #2e2e45; }
+  .todo-row.done { opacity: 0.55; }
+  .todo-row.overdue { border-color: rgba(239,68,68,0.35); }
+
+  .todo-check {
+    appearance: none;
+    min-width: 20px;
+    width: 20px;
+    height: 20px;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    cursor: pointer;
+    background: var(--bg);
+    transition: 0.2s;
+    flex-shrink: 0;
+  }
+  .todo-check:checked {
+    background: var(--accent);
+    border-color: var(--accent);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+    background-size: 14px;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .todo-body { flex-grow: 1; min-width: 0; }
+  .todo-text { font-size: 13px; font-weight: 500; word-break: break-word; }
+  .todo-row.done .todo-text { text-decoration: line-through; }
+  .todo-meta { display: flex; gap: 10px; align-items: center; margin-top: 4px; flex-wrap: wrap; }
+  .todo-due { font-size: 11px; color: var(--muted); display: flex; align-items: center; gap: 4px; }
+  .todo-due.overdue-text { color: var(--red); font-weight: 600; }
+  .todo-tag-pill {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+  .todo-tag-pill.high { background: rgba(239,68,68,0.1); color: var(--red); }
+  .todo-tag-pill.medium { background: rgba(245,158,11,0.1); color: var(--warn); }
+  .todo-tag-pill.low { background: rgba(91,110,245,0.1); color: var(--accent2); }
+
+  .todo-delete {
+    background: none;
+    border: none;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 16px;
+    padding: 6px;
+    border-radius: 6px;
+    transition: 0.2s;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+  .todo-delete:hover { color: var(--red); background: rgba(239,68,68,0.08); }
+
+  .todo-empty {
+    text-align: center;
+    padding: 48px 20px;
+    color: var(--muted);
+    font-size: 13px;
+    background: var(--surface);
+    border: 1px dashed var(--border);
+    border-radius: 10px;
+  }
+
+  .todo-clear-row { display: flex; justify-content: flex-end; margin-top: 16px; }
+  .todo-clear-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition: 0.2s;
+  }
+  .todo-clear-btn:hover { color: var(--red); border-color: rgba(239,68,68,0.3); }
   
   /* RESPONSIVE */
   @media (max-width: 640px) {
@@ -202,6 +369,8 @@
     main { padding: 24px 16px; }
     .skills-track { grid-template-columns: 1fr; }
     .phase-subtitle { display: none; }
+    .todo-add-form { flex-direction: column; }
+    .todo-add-form input, .todo-add-form select, .todo-add-btn { width: 100%; }
   }
 </style>
 </head>
@@ -230,6 +399,7 @@
 
 <div class="tabs">
   <button class="tab active" onclick="showTab('dashboard', this)">Dashboard</button>
+  <button class="tab" onclick="showTab('todo', this)">To-Do List</button>
   <button class="tab" onclick="showTab('timeline', this)">Timeline Roadmap</button>
   <button class="tab" onclick="showTab('skills', this)">Skills Ladder</button>
   <button class="tab" onclick="showTab('internships', this)">Internship Funnel</button>
@@ -287,7 +457,64 @@
     </div>
   </section>
 
-  <!-- 2. TIMELINE ROADMAP (Original) -->
+  <!-- 2. TO-DO LIST (New Tab) -->
+  <section id="todo" class="section">
+    <div class="todo-stats">
+      <div class="todo-stat">
+        <div class="num" id="todo-stat-total">0</div>
+        <div class="lbl">Total Tasks</div>
+      </div>
+      <div class="todo-stat accent">
+        <div class="num" id="todo-stat-done">0</div>
+        <div class="lbl">Completed</div>
+      </div>
+      <div class="todo-stat warn">
+        <div class="num" id="todo-stat-pending">0</div>
+        <div class="lbl">Pending</div>
+      </div>
+      <div class="todo-stat red">
+        <div class="num" id="todo-stat-overdue">0</div>
+        <div class="lbl">Overdue</div>
+      </div>
+    </div>
+
+    <div class="todo-toolbar">
+      <form class="todo-add-form" id="todo-add-form">
+        <input type="text" id="todo-input-text" placeholder="Add a new task — e.g. Apply to Deloitte TAS internship" required>
+        <select id="todo-input-priority">
+          <option value="medium">Medium Priority</option>
+          <option value="high">High Priority</option>
+          <option value="low">Low Priority</option>
+        </select>
+        <input type="date" id="todo-input-due">
+        <button type="submit" class="todo-add-btn">+ Add Task</button>
+      </form>
+    </div>
+
+    <div class="todo-toolbar">
+      <div class="todo-filters" id="todo-filters">
+        <button class="todo-filter-btn active" data-filter="all">All</button>
+        <button class="todo-filter-btn" data-filter="pending">Pending</button>
+        <button class="todo-filter-btn" data-filter="done">Completed</button>
+        <button class="todo-filter-btn" data-filter="high">High Priority</button>
+        <button class="todo-filter-btn" data-filter="overdue">Overdue</button>
+      </div>
+    </div>
+
+    <div class="todo-list" id="todo-list">
+      <!-- Tasks rendered here by JS -->
+    </div>
+
+    <div id="todo-empty-state" class="todo-empty" style="display:none;">
+      No tasks yet. Add your first task above — link it to a Timeline phase or just track day-to-day to-dos.
+    </div>
+
+    <div class="todo-clear-row">
+      <button class="todo-clear-btn" onclick="clearCompletedTodos()">Clear Completed</button>
+    </div>
+  </section>
+
+  <!-- 3. TIMELINE ROADMAP (Original) -->
   <section id="timeline" class="section">
     <!-- PRE-COLLEGE -->
     <div class="phase">
@@ -540,7 +767,7 @@
     </div>
   </section>
 
-  <!-- 3. SKILLS LADDER (Original Reconstructed) -->
+  <!-- 4. SKILLS LADDER (Original Reconstructed) -->
   <section id="skills" class="section">
     <div class="skills-track">
       <div class="skill-year">
@@ -585,7 +812,7 @@
     </div>
   </section>
 
-  <!-- 4. INTERNSHIP FUNNEL (Original Reconstructed + Table) -->
+  <!-- 5. INTERNSHIP FUNNEL (Original Reconstructed + Table) -->
   <section id="internships" class="section">
     <div class="funnel">
       <div class="funnel-step">
@@ -647,7 +874,7 @@
     </table>
   </section>
 
-  <!-- 5. CERTIFICATIONS (Original Reconstructed) -->
+  <!-- 6. CERTIFICATIONS (Original Reconstructed) -->
   <section id="certs" class="section">
     <div class="certs-grid">
       <div class="cert-card">
@@ -671,7 +898,7 @@
     </div>
   </section>
 
-  <!-- 6. PRIORITIES (Original Reconstructed) -->
+  <!-- 7. PRIORITIES (Original Reconstructed) -->
   <section id="priorities" class="section">
     <div class="warn-box">
       <h4>⚠ Critical OS Warnings</h4>
@@ -710,7 +937,7 @@
     </div>
   </section>
 
-  <!-- 7. RESOURCES & PORTFOLIO (OS Addition) -->
+  <!-- 8. RESOURCES & PORTFOLIO (OS Addition) -->
   <section id="resources" class="section">
     <div class="dash-grid">
       <div class="dash-card">
@@ -745,6 +972,279 @@
 
 </main>
 
-<script src="script.js"></script>
+<script>
+  /* ============================
+     THEME TOGGLE
+  ============================ */
+  function applyTheme(theme) {
+    if (theme === 'light') {
+      document.documentElement.setAttribute('data-theme', 'light');
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+    }
+  }
+
+  function toggleTheme() {
+    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    const next = isLight ? 'dark' : 'light';
+    applyTheme(next);
+    localStorage.setItem('careeros-theme', next);
+  }
+
+  (function initTheme() {
+    const saved = localStorage.getItem('careeros-theme');
+    if (saved) applyTheme(saved);
+  })();
+
+  /* ============================
+     TAB SWITCHING
+  ============================ */
+  function showTab(id, btn) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+    localStorage.setItem('careeros-active-tab', id);
+  }
+
+  (function initTab() {
+    const saved = localStorage.getItem('careeros-active-tab');
+    if (saved && document.getElementById(saved)) {
+      const btn = Array.from(document.querySelectorAll('.tab')).find(t => t.getAttribute('onclick').includes(`'${saved}'`));
+      if (btn) showTab(saved, btn);
+    }
+  })();
+
+  /* ============================
+     SAVE / LOAD GENERIC INPUTS & CHECKBOXES
+  ============================ */
+  function initPersistence() {
+    document.querySelectorAll('.save-input').forEach(el => {
+      const key = 'careeros-' + el.id;
+      const saved = localStorage.getItem(key);
+      if (saved !== null) el.value = saved;
+      el.addEventListener('input', () => {
+        localStorage.setItem(key, el.value);
+        updateProgress();
+      });
+    });
+
+    document.querySelectorAll('.save-check, .track-check').forEach(el => {
+      const key = 'careeros-' + el.id;
+      const saved = localStorage.getItem(key);
+      if (saved === 'true') el.checked = true;
+      el.addEventListener('change', () => {
+        localStorage.setItem(key, el.checked);
+        updateProgress();
+      });
+    });
+  }
+
+  /* ============================
+     MASTER PROGRESS BAR
+     (based on .track-check boxes across Timeline + Certs)
+  ============================ */
+  function updateProgress() {
+    const trackBoxes = document.querySelectorAll('.track-check');
+    const total = trackBoxes.length;
+    const done = Array.from(trackBoxes).filter(cb => cb.checked).length;
+    const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+    document.getElementById('progress-bar').style.width = pct + '%';
+    document.getElementById('progress-text').textContent = pct + '%';
+  }
+
+  /* ============================
+     TO-DO LIST
+  ============================ */
+  const TODO_STORAGE_KEY = 'careeros-todos';
+  let todos = [];
+  let currentFilter = 'all';
+
+  function loadTodos() {
+    try {
+      const raw = localStorage.getItem(TODO_STORAGE_KEY);
+      todos = raw ? JSON.parse(raw) : [];
+    } catch (e) {
+      todos = [];
+    }
+  }
+
+  function saveTodos() {
+    localStorage.setItem(TODO_STORAGE_KEY, JSON.stringify(todos));
+  }
+
+  function uid() {
+    return 't' + Date.now() + Math.random().toString(36).slice(2, 8);
+  }
+
+  function isOverdue(todo) {
+    if (!todo.due || todo.done) return false;
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const dueDate = new Date(todo.due + 'T00:00:00');
+    return dueDate < today;
+  }
+
+  function formatDue(dueStr) {
+    const d = new Date(dueStr + 'T00:00:00');
+    return d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+  }
+
+  function addTodo(text, priority, due) {
+    todos.unshift({
+      id: uid(),
+      text: text.trim(),
+      priority: priority || 'medium',
+      due: due || '',
+      done: false,
+      createdAt: Date.now()
+    });
+    saveTodos();
+    renderTodos();
+  }
+
+  function toggleTodo(id) {
+    const t = todos.find(t => t.id === id);
+    if (t) {
+      t.done = !t.done;
+      saveTodos();
+      renderTodos();
+    }
+  }
+
+  function deleteTodo(id) {
+    todos = todos.filter(t => t.id !== id);
+    saveTodos();
+    renderTodos();
+  }
+
+  function clearCompletedTodos() {
+    const hasCompleted = todos.some(t => t.done);
+    if (!hasCompleted) return;
+    todos = todos.filter(t => !t.done);
+    saveTodos();
+    renderTodos();
+  }
+
+  function setFilter(filter) {
+    currentFilter = filter;
+    document.querySelectorAll('.todo-filter-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.filter === filter);
+    });
+    renderTodos();
+  }
+
+  function getFilteredTodos() {
+    switch (currentFilter) {
+      case 'pending': return todos.filter(t => !t.done);
+      case 'done': return todos.filter(t => t.done);
+      case 'high': return todos.filter(t => t.priority === 'high');
+      case 'overdue': return todos.filter(t => isOverdue(t));
+      default: return todos;
+    }
+  }
+
+  function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  function renderTodos() {
+    const listEl = document.getElementById('todo-list');
+    const emptyEl = document.getElementById('todo-empty-state');
+    const filtered = getFilteredTodos();
+
+    // Sort: overdue first, then by priority (high > medium > low), then by due date
+    const priorityRank = { high: 0, medium: 1, low: 2 };
+    const sorted = [...filtered].sort((a, b) => {
+      const aOver = isOverdue(a) ? 0 : 1;
+      const bOver = isOverdue(b) ? 0 : 1;
+      if (aOver !== bOver) return aOver - bOver;
+      if (a.done !== b.done) return a.done ? 1 : -1;
+      if (priorityRank[a.priority] !== priorityRank[b.priority]) return priorityRank[a.priority] - priorityRank[b.priority];
+      if (a.due && b.due) return a.due.localeCompare(b.due);
+      if (a.due) return -1;
+      if (b.due) return 1;
+      return b.createdAt - a.createdAt;
+    });
+
+    if (sorted.length === 0) {
+      listEl.innerHTML = '';
+      emptyEl.style.display = 'block';
+    } else {
+      emptyEl.style.display = 'none';
+      listEl.innerHTML = sorted.map(t => {
+        const overdue = isOverdue(t);
+        const dueHtml = t.due
+          ? `<span class="todo-due${overdue ? ' overdue-text' : ''}">📅 ${overdue ? 'Overdue: ' : 'Due '}${formatDue(t.due)}</span>`
+          : '';
+        return `
+          <div class="todo-row ${t.done ? 'done' : ''} ${overdue ? 'overdue' : ''}" data-id="${t.id}">
+            <input type="checkbox" class="todo-check" ${t.done ? 'checked' : ''} onchange="toggleTodo('${t.id}')">
+            <div class="todo-body">
+              <div class="todo-text">${escapeHtml(t.text)}</div>
+              <div class="todo-meta">
+                <span class="todo-tag-pill ${t.priority}">${t.priority}</span>
+                ${dueHtml}
+              </div>
+            </div>
+            <button class="todo-delete" onclick="deleteTodo('${t.id}')" title="Delete task">✕</button>
+          </div>
+        `;
+      }).join('');
+    }
+
+    updateTodoStats();
+  }
+
+  function updateTodoStats() {
+    const total = todos.length;
+    const done = todos.filter(t => t.done).length;
+    const pending = total - done;
+    const overdue = todos.filter(t => isOverdue(t)).length;
+
+    document.getElementById('todo-stat-total').textContent = total;
+    document.getElementById('todo-stat-done').textContent = done;
+    document.getElementById('todo-stat-pending').textContent = pending;
+    document.getElementById('todo-stat-overdue').textContent = overdue;
+  }
+
+  function initTodoList() {
+    loadTodos();
+    renderTodos();
+
+    document.getElementById('todo-add-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const textInput = document.getElementById('todo-input-text');
+      const priorityInput = document.getElementById('todo-input-priority');
+      const dueInput = document.getElementById('todo-input-due');
+
+      const text = textInput.value.trim();
+      if (!text) return;
+
+      addTodo(text, priorityInput.value, dueInput.value);
+
+      textInput.value = '';
+      dueInput.value = '';
+      priorityInput.value = 'medium';
+      textInput.focus();
+    });
+
+    document.querySelectorAll('.todo-filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => setFilter(btn.dataset.filter));
+    });
+  }
+
+  /* ============================
+     INIT
+  ============================ */
+  document.addEventListener('DOMContentLoaded', () => {
+    initPersistence();
+    updateProgress();
+    initTodoList();
+  });
+</script>
+
 </body>
 </html>
