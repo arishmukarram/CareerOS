@@ -1,13 +1,9 @@
 const mongoose = require('mongoose');
 
-// The { strict: false } option is the key here
+// --- SCHEMAS ---
+
 const UserSchema = new mongoose.Schema({}, { strict: false, timestamps: true });
 
-module.exports = {
-  User: mongoose.model('User', UserSchema)
-};
-
-// Academics (Subjects, Assignments, Study Progress)
 const AcademicSchema = new mongoose.Schema({
   semester: String,
   subject: String,
@@ -19,14 +15,12 @@ const AcademicSchema = new mongoose.Schema({
   }
 });
 
-// Investment Banking Prep (Modeling, Projects, Tech Skills)
 const IBPrepSchema = new mongoose.Schema({
   topic: { type: String, enum: ['DCF', 'LBO', 'M&A', 'Excel', 'PowerBI', 'Python', 'SQL'] },
   status: { type: String, enum: ['Not Started', 'In Progress', 'Completed'] },
   projects: [{ title: String, link: String }]
 });
 
-// Internship Tracker (CRM for Applications)
 const InternshipSchema = new mongoose.Schema({
   company: String,
   tier: { type: String, enum: ['BB', 'EB', 'Boutique', 'Big4', 'Startup', 'Research'] },
@@ -34,7 +28,6 @@ const InternshipSchema = new mongoose.Schema({
   dateApplied: Date
 });
 
-// Networking CRM (Alumni, Professors, Coffee Chats)
 const NetworkSchema = new mongoose.Schema({
   name: String,
   role: String,
@@ -44,7 +37,6 @@ const NetworkSchema = new mongoose.Schema({
   notes: String
 });
 
-// Portfolio & Links
 const PortfolioSchema = new mongoose.Schema({
   resumeLink: String,
   coverLetterLink: String,
@@ -53,6 +45,7 @@ const PortfolioSchema = new mongoose.Schema({
   certificates: [String]
 });
 
+// --- FINAL EXPORT (Only one) ---
 module.exports = {
   User: mongoose.model('User', UserSchema),
   Academic: mongoose.model('Academic', AcademicSchema),
